@@ -4,6 +4,11 @@
   home.username = "dwilliams";
   home.homeDirectory = "/home/dwilliams";
   home.stateVersion = "25.11";
+
+  home.sessionVariables = {
+    GTK_THEME = "adw-gtk3-dark";
+  };
+
   programs = {
     neovim = {
       enable = true;
@@ -35,15 +40,9 @@
 
   gtk = {
     enable = true;
-
-    home.sessionVariables = {
-      GTK_THEME = "adw-gtk3-dark";
-    };
-
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
     };
-
     gtk4.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
     };
