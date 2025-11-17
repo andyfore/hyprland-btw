@@ -108,6 +108,7 @@
     bottom
     clang
     curl
+    direnv # needed for zsh plugin and vscode
     fastfetch
     foot
     git
