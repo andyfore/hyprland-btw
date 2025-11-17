@@ -36,18 +36,18 @@
   gtk = {
     enable = true;
 
+    # Force a dark GTK theme (matches what nwg-look is using, but dark variant)
+    theme = {
+      name = "adw-gtk3-dark";
+    };
+
+    # Optional: keep these so apps that honor the hint still prefer dark
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
     };
 
     gtk4.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
-    };
-
-    # Optional: also explicitly pick a dark theme
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
     };
   };
 
