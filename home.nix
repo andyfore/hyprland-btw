@@ -44,6 +44,18 @@
     };
   };
 
+  # Noctalia 
+  programs.noctalia-shell = {
+    enable = true;
+    systemd.enable = true;
+
+    #settings = {
+    # Example: enable app2unit launcher integration
+    #  appLauncher = {
+    #    useApp2Unit = true;
+    #  };
+  };
+
   gtk = {
     enable = true;
     gtk3.extraConfig = {
