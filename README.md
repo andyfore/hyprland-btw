@@ -1,4 +1,4 @@
-# tony-nixos — Hyprland-on-NixOS (single-host)
+# hyprland-btw — Hyprland-on-NixOS (single-host)
 
 Super simple NixOS + Hyprland configuration derived from the **tony,btw** example,
 with a few additions:
@@ -50,8 +50,8 @@ From a NixOS live system or an existing NixOS install:
 ```bash
 nix-shell -p git
 cd ~
-git clone https://gitlab.com/your-remote/tony-nixos.git
-cd tony-nixos
+git clone https://gitlab.com/your-remote/hyprland-btw.git
+cd hyprland-btw
 chmod +x ./install.sh
 ./install.sh
 ```
@@ -75,8 +75,8 @@ If you prefer to do things by hand:
 ```bash
 nix-shell -p git
 cd ~
-git clone https://gitlab.com/your-remote/tony-nixos.git
-cd tony-nixos
+git clone https://gitlab.com/your-remote/hyprland-btw.git
+cd hyprland-btw
 sudo cp /etc/nixos/hardware-configuration.nix ./hardware-configuration.nix
 sudo nixos-rebuild switch --flake .#hyprland-btw
 ```
@@ -259,8 +259,8 @@ Below you can expand each Nix file to view its full contents.
       shellAliases = {
         ll = "eza -la --group-dirs-first --icons";
         v = "nvim";
-        rebuild = "sudo nixos-rebuild switch --flake ~/tony-nixos/";
-        update = "nix flake update --flake ~/tony-nixos && sudo nixos-rebuild switch --flake ~/tony-nixos/";
+        rebuild = "sudo nixos-rebuild switch --flake ~/hyprland-btw/";
+        update = "nix flake update --flake ~/hyprland-btw && sudo nixos-rebuild switch --flake ~/hyprland-btw/";
       };
       # The block below is for commands that should run every time a terminal starts.
       initExtra = ''
@@ -461,7 +461,7 @@ Default keybinds from <code>config/hypr/hyprland.conf</code> (with <code>$mainMo
 Annotated overview of the main files and directories in this flake:
 
 ```text path=null start=null
-tony-nixos/
+hyprland-btw/
 ├── flake.nix                     # Flake entrypoint; defines inputs and hyprland-btw system
 ├── configuration.nix             # Top-level NixOS system configuration
 ├── hardware-configuration.nix    # Hardware/disk layout for this machine (auto-generated)
