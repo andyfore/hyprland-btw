@@ -108,19 +108,89 @@ echo -e "  UTC                 (Coordinated Universal Time)"
 
 defaultTimeZone="America/New_York"
 
+defaultHostName="hyprland-btw"
+defaultUserName="${USER:-dwilliams}"
+defaultKeyboardLayout="us"
+defaultConsoleKeyMap="us"
+
 if [ $NONINTERACTIVE -eq 1 ]; then
   timeZone="$defaultTimeZone"
+  hostName="$defaultHostName"
+  userName="$defaultUserName"
+  keyboardLayout="$defaultKeyboardLayout"
+  consoleKeyMap="$defaultConsoleKeyMap"
   echo -e "Non-interactive: defaulting timezone to $timeZone"
+  echo -e "Non-interactive: defaulting hostname to $hostName"
+  echo -e "Non-interactive: defaulting username to $userName"
+  echo -e "Non-interactive: defaulting keyboard layout to $keyboardLayout"
+  echo -e "Non-interactive: defaulting console keymap to $consoleKeyMap"
 else
   read -rp "Enter your timezone [${defaultTimeZone}]: " timeZone
   if [ -z "$timeZone" ]; then
     timeZone="$defaultTimeZone"
   fi
+
+  echo ""
+  read -rp "Enter hostname for this system [${defaultHostName}]: " hostName
+  if [ -z "$hostName" ]; then
+    hostName="$defaultHostName"
+  fi
+
+  echo ""
+  read -rp "Enter primary username for this system [${defaultUserName}]: " userName
+  if [ -z "$userName" ]; then
+    userName="$defaultUserName"
+  fi
+
+  echo ""
+  echo -e "Common keyboard layouts:"
+  echo -e "  us      (US QWERTY - most common)"
+  echo -e "  uk      (UK QWERTY)"
+  echo -e "  de      (German QWERTZ)"
+  echo -e "  fr      (French AZERTY)"
+  echo -e "  es      (Spanish QWERTY)"
+  echo -e "  it      (Italian QWERTY)"
+  echo -e "  dvorak  (Dvorak layout)"
+  echo -e "  colemak (Colemak layout)"
+  echo ""
+  read -rp "Enter your keyboard layout [ ${defaultKeyboardLayout} ]: " keyboardLayout
+  if [ -z "$keyboardLayout" ]; then
+    keyboardLayout="$defaultKeyboardLayout"
+  fi
+
+  echo ""
+  echo -e "Console keymap usually matches keyboard layout"
+  echo -e "Common console keymaps:"
+  echo -e "  us    (US layout)"
+  echo -e "  uk    (UK layout)"
+  echo -e "  de    (German layout)"
+  echo -e "  fr    (French layout)"
+  echo ""
+  read -rp "Enter your console keymap [ ${keyboardLayout} ]: " consoleKeyMap
+  if [ -z "$consoleKeyMap" ]; then
+    consoleKeyMap="$keyboardLayout"
+  fi
 fi
 
 echo -e "${GREEN}Selected timezone: $timeZone${NC}"
+echo -e "${GREEN}Selected hostname: $hostName${NC}"
+echo -e "${GREEN}Selected username: $userName${NC}"
+echo -e "${GREEN}Selected keyboard layout: $keyboardLayout${NC}"
+echo -e "${GREEN}Selected console keymap: $consoleKeyMap${NC}"
 
+# Patch configuration.nix with chosen timezone, hostname, username, and layouts.
 sed -i "s|time.timeZone = \".*\";|time.timeZone = \"$timeZone\";|" ./configuration.nix
+sed -i "s|networking.hostName = \".*\";|networking.hostName = \"$hostName\";|" ./configuration.nix
+# Update the primary user attribute from users.users.dwilliams to the chosen username.
+sed -i "s/users.users\.dwilliams = {/users.users.\"$userName\" = {" ./configuration.nix
+# Update console keymap and XKB layout.
+sed -i "s|console.keyMap = \".*\";|console.keyMap = \"$consoleKeyMap\";|" ./configuration.nix
+sed -i "s|xserver.xkb.layout = \".*\";|xserver.xkb.layout = \"$keyboardLayout\";|" ./configuration.nix
+
+# Update flake.nix and home.nix to avoid hardcoded username.
+sed -i "s/users.dwilliams = import .\/home.nix;/users.$userName = import .\/home.nix;/" ./flake.nix
+sed -i "s/home.username = \"dwilliams\";/home.username = \"$userName\";/" ./home.nix
+sed -i "s|home.homeDirectory = \"/home/dwilliams\";|home.homeDirectory = \"/home/$userName\";|" ./home.nix
 
 print_header "Hardware Configuration"
 
@@ -154,10 +224,23 @@ else
   fi
 fi
 
-print_header "Running nixos-rebuild"
+print_header "Running nixos-rebuild (boot)"
 
-if sudo nixos-rebuild switch --flake .#hyprland-btw --option accept-flake-config true --refresh; then
+if sudo nixos-rebuild boot --flake .#hyprland-btw --option accept-flake-config true --refresh; then
   print_success_banner
+  echo ""
+  if [ $NONINTERACTIVE -eq 1 ]; then
+    echo "Non-interactive: please reboot your system to start using tony-nixos."
+  else
+    read -p "Reboot now to start using tony-nixos? (Y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "Rebooting..."
+      sudo reboot
+    else
+      echo "You chose not to reboot now. Please reboot manually when ready."
+    fi
+  fi
 else
   print_failure_banner
   exit 1

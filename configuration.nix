@@ -46,6 +46,8 @@
     seatd.enable = true;
     gnome.gnome-keyring.enable = true;
     libinput.enable = true;
+    # Default XKB layout for Hyprland/X11 (overridden by installer).
+    xserver.xkb.layout = "us";
     flatpak.enable = true;
     pipewire = {
       enable = true;
@@ -77,6 +79,9 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # Default console keymap (overridden by installer).
+  console.keyMap = "us";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dwilliams = {
