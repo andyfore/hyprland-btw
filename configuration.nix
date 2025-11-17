@@ -86,16 +86,13 @@
 
 
     # Hyprland Related 
-    quickshell
+    app2unit # launcher 
     clipman
     cliphist
     grim
+    quickshell
     slurp
     nwg-look
-    nwg-dock-hyprland
-    nwg-menu
-    nwg-panel
-    nwg-launchers
     rofi
     wofi
     waybar
@@ -125,6 +122,7 @@
     nh
     onefetch
     pciutils
+    ranger
     ripgrep
     starship
     tmux
