@@ -4,6 +4,7 @@
   imports = [
     ./config/nixvim.nix # your Nixvim HM module
     ./config/noctalia.nix # Noctalia QuickShell wiring (like ddubsos)
+    ./config/vscode.nix
     ./zsh.nix
   ];
   home = {

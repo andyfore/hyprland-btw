@@ -109,6 +109,7 @@
     bat
     btop
     bottom
+    cargo
     clang
     curl
     direnv # needed for zsh plugin and vscode
@@ -122,18 +123,19 @@
     htop
     hyfetch
     kitty
-    lunarvim
-    luarocks
+    lunarvim # Alternate neovim (lvim)
+    luarocks # LUA for nevoim
     ncdu
-    nh
+    nh # Nix Helper
+    nixd # nix lsp
     onefetch
     pciutils
     ranger
     ripgrep
+    rustup
     starship
-    tmux
+    tmux #Terminal mux with hybridd ddubs-tonybtw config
     ugrep
-    vim
     wget
     yazi
     zig
