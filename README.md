@@ -8,7 +8,6 @@ https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s
 
 
 ### Hyprland: 
-- UWSM enabled
 - Autoloin 
 - Simple flake 
 - Simple Home Manager 
