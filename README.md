@@ -321,10 +321,8 @@ environment.systemPackages = with pkgs; [
 
 }
 
-```
+````
 </details>
-
-
 
 <details>
 <summary><code>config/fonts.nix</code> – Install Fonts</summary>
@@ -361,7 +359,7 @@ environment.systemPackages = with pkgs; [
     ];
   };
 }
-```
+````
 
 </details>
 
