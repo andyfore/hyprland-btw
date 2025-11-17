@@ -1,21 +1,25 @@
-## Project:
+# hyprland-btw — Hyprland-on-NixOS (single-host)
 
-## Super Simple NixOS config for Hyprland
+Super simple NixOS + Hyprland configuration derived from the **tony,btw** example,
+with a few additions:
 
-## This configuration was taken directly from:
+- Modular drivers for AMD/Intel/NVIDIA GPUs and VM guest services
+- Small install script for first-time setup on a single host
+- Home Manager wiring for user-level config
 
-### [`tony,btw` YouTube video](https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s)
+### Upstream inspiration
 
-#### Credit: [tony,btw Github](https://github.com/tonybanters)
+- Video: [`tony,btw` — Hyprland on NixOS](https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s)
+- Config: [tony,btw GitHub](https://github.com/tonybanters)
 
-> Note: It's for experimentation in a VM.
->
+> Default target is **a single host**, often running in a VM.
 > - QEMU/KVM with VirtIO and 3D acceleration enabled
-> - There is no install script yet
-> - In can be installed from live NIXOS ISO. See Tony's video
-> - No support for NVIDIA, AMD GPUs yet.
+> - Can be installed from a live NixOS ISO (see Tony's video)
+> - This repo now includes basic GPU + VM support out of the box.
 
-### Hyprland:
+## Features
+
+### Hyprland
 
 - `ly` login Manager
 - Simple flake
@@ -36,6 +40,58 @@
 ![Waybar](config/images/ScreenShot-waybar.png)
 
 ![Waybar htop](config/images/ScreenShot-htop-waybar.png)
+
+## Installation
+
+### Quick install (script)
+
+From a NixOS live system or an existing NixOS install:
+
+```bash
+nix-shell -p git
+cd ~
+git clone https://gitlab.com/your-remote/hyprland-btw.git
+cd hyprland-btw
+chmod +x ./install.sh
+./install.sh
+```
+
+- The script:
+  - Verifies you are on NixOS
+  - Copies `/etc/nixos/hardware-configuration.nix` into this repo
+  - Lets you set the timezone (or defaults to `America/New_York`)
+  - Runs `sudo nixos-rebuild switch --flake .#hyprland-btw`
+
+Non-interactive usage:
+
+```bash
+./install.sh --non-interactive
+```
+
+### Manual install
+
+If you prefer to do things by hand:
+
+```bash
+nix-shell -p git
+cd ~
+git clone https://gitlab.com/your-remote/hyprland-btw.git
+cd hyprland-btw
+sudo cp /etc/nixos/hardware-configuration.nix ./hardware-configuration.nix
+sudo nixos-rebuild switch --flake .#hyprland-btw
+```
+
+## Drivers
+
+Drivers are now modular, inspired by `ddubsos/modules/drivers`:
+
+- `drivers.amdgpu.enable = true;` — AMD GPU support (ROCm symlink + `services.xserver.videoDrivers = [ "amdgpu" ]`)
+- `drivers.intel.enable = true;` — Intel GPU support (VAAPI / VDPAU packages)
+- `drivers.nvidia.enable = true;` — NVIDIA GPU support (`hardware.nvidia` + stable driver package)
+- `vm.guest-services.enable = true;` — QEMU/Spice guest services (moved out of `services` in `configuration.nix`)
+
+This project assumes **a single host**; there is no `specialArgs.host` logic or
+per-host branching like in ddubsOS. Toggle only the one driver you actually need.
 
 ## Nix configuration files
 
@@ -203,8 +259,8 @@ Below you can expand each Nix file to view its full contents.
       shellAliases = {
         ll = "eza -la --group-dirs-first --icons";
         v = "nvim";
-        rebuild = "sudo nixos-rebuild switch --flake ~/tony-nixos/";
-        update = "nix flake update --flake ~/tony-nixos && sudo nixos-rebuild switch --flake ~/tony-nixos/";
+        rebuild = "sudo nixos-rebuild switch --flake ~/hyprland-btw/";
+        update = "nix flake update --flake ~/hyprland-btw && sudo nixos-rebuild switch --flake ~/hyprland-btw/";
       };
       # The block below is for commands that should run every time a terminal starts.
       initExtra = ''
@@ -405,7 +461,7 @@ Default keybinds from <code>config/hypr/hyprland.conf</code> (with <code>$mainMo
 Annotated overview of the main files and directories in this flake:
 
 ```text path=null start=null
-tony-nixos/
+hyprland-btw/
 ├── flake.nix                     # Flake entrypoint; defines inputs and hyprland-btw system
 ├── configuration.nix             # Top-level NixOS system configuration
 ├── hardware-configuration.nix    # Hardware/disk layout for this machine (auto-generated)

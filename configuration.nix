@@ -26,13 +26,19 @@
 
   time.timeZone = "America/New_York";
 
+  # GPU/VM profile for this single-host system
+  # Current host: VM with virtio GPU (no dedicated AMD/Intel/NVIDIA module enabled).
+  # The installer will set exactly ONE of these to true based on your GPU profile:
+  drivers.amdgpu.enable = false;  # AMD GPUs
+  drivers.intel.enable  = false;  # Intel iGPU
+  drivers.nvidia.enable = false;  # NVIDIA GPUs
+
+  # Enable VM guest services via the drivers module when running in a VM.
+  # Disable this if you are installing on bare metal without QEMU/Spice.
+  vm.guest-services.enable = true;
+
   # Add services 
   services = {
-    # Enabled VM guest services
-    qemuGuest.enable = true;
-    spice-vdagentd.enable = true;
-    spice-webdavd.enable = true;
-    spice-autorandr.enable = true;
     getty.autologinUser = null; # disable auto-login
     openssh.enable = true;
     tumbler.enable = true;
@@ -40,6 +46,8 @@
     seatd.enable = true;
     gnome.gnome-keyring.enable = true;
     libinput.enable = true;
+    # Default XKB layout for Hyprland/X11 (overridden by installer).
+    xserver.xkb.layout = "us";
     flatpak.enable = true;
     pipewire = {
       enable = true;
@@ -72,6 +80,9 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Default console keymap (overridden by installer).
+  console.keyMap = "us";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dwilliams = {
     isNormalUser = true;
@@ -81,6 +92,17 @@
       tree
     ];
   };
+
+  # Example: add additional users (uncomment and adjust as needed)
+  # users.users."seconduser" = {
+  #   isNormalUser = true;
+  #   extraGroups = [ "wheel" ];
+  #   shell = pkgs.zsh;
+  #   packages = with pkgs; [
+  #     git
+  #     htop
+  #   ];
+  # };
 
   systemd.services.flatpak-add-flathub = {
     description = "Add Flathub Flatpak remote";
