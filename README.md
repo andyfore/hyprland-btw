@@ -71,31 +71,27 @@ https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s
          rebuild = "sudo nixos-rebuild switch --flake ~/tony-nixos/";
          update  = "nix flake update --flake ~/tony-nixos && sudo nixos-rebuild switch --flake ~/tony-nixos/";
     };
-
-    profileExtra = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-        exec uwsm start -S hyprland-uwsm.desktop
-      fi
-    '';
-
     # The block below is for commands that should run every time a terminal starts.
     initExtra = ''
       # Source the personal file for all interactive shell sessions
       if [ -f ~/.bashrc-personal ]; then
-        source ~/.bashrc-personal
+       source ~/.bashrc-personal
       fi
     '';
-
+    profileExtra = ''
+      if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+        exec Hyprland
+      fi
+    '';
   };
  };
     home.file.".config/hypr".source = ./config/hypr;
     home.file.".config/waybar".source = ./config/waybar;
     home.file.".config/foot".source = ./config/foot;
     home.file.".bashrc-personal".source = ./config/.bashrc-personal;
+    home.file.".config/starship.toml".source = ./config/starship.toml;
 }
 ```
-
-## `configuration.nix`
 
 ```nix
 
@@ -134,7 +130,7 @@ https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s
      hyprland = { 
       enable = true; 
       xwayland.enable = true; 
-      withUWSM = true;
+      withUWSM = false;    # Stopped woirkoing after update
      };
     firefox.enable = true;
     thunar.enable = true;
@@ -247,10 +243,12 @@ https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s
 
    nixpkgs.config.allowUnfree = true;
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-   security.sudo.wheelNeedsPassword = true;
+   security.sudo.wheelNeedsPassword = false;
    system.stateVersion = "25.11"; # Did you read the comment?
 
 }
 
-```
 
+
+
+```
