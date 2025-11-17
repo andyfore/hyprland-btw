@@ -16,7 +16,7 @@
 
   programs = {
     neovim = {
-      enable = false; # No managed by nixvim.nix
+      enable = false; # Now managed by nixvim.nix
       defaultEditor = true;
     };
     bash = {
@@ -41,6 +41,34 @@
           exec Hyprland
         fi
       '';
+    };
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
+    };
+
+    eza = {
+      enable = true;
+      icons = "auto";
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+      git = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--no-quotes"
+        "--header" # Show header row
+        "--git-ignore"
+        # "--time-style=long-iso" # ISO 8601 extended format for time
+        "--classify" # append indicator (/, *, =, @, |)
+        "--hyperlink" # make paths clickable in some terminals
+      ];
     };
   };
 
