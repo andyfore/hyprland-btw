@@ -11,6 +11,12 @@
     loader.efi.canTouchEfiVariables = true;
   };
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 40; # use ~50% of RAM for compressed swap (tweak as you like)
+    priority = 100; # higher than any disk-based swap
+  };
+
   networking = {
     hostName = "hyprland-btw";
     networkmanager.enable = true;
