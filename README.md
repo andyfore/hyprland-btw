@@ -4,14 +4,21 @@
 
 ## This configuration was taken directly from [`tony,btw` YouTube video](https://www.youtube.com/watch?v=7QLhCgDMqgw&t=138s)
 
+> Note: It's for experimentation in a VM.
+>
+> - QEMU/KVM with VirtIO and 3D acceleration enabled
+> - There is not install script yet
+> - No support for NVIDIA, AMD GPUs yet.
+
 ### Hyprland:
 
 - Autoloin
+  > Note: This will be changing to `ly` login Manager
 - Simple flake
 - Simple Home Manager
 - Noctalia shell
 - Simple waybar as alternative
-- NeoVIM configured by nixvim
+- NeoVIM configured by `nixvim`
 - Tony,BTWs TMUX configuration
 
 **Noctalia Shell**
