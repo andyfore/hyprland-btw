@@ -57,5 +57,6 @@
   home.file.".config/kitty".source = ./config/kitty;
   home.file.".config/foot".source = ./config/foot;
   home.file.".bashrc-personal".source = ./config/.bashrc-personal;
+  home.file.".config/tmux/tmux.conf".source = ./config/tmux.conf;
   home.file.".config/starship.toml".source = ./config/starship.toml;
 }
