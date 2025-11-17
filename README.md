@@ -78,7 +78,7 @@
 
 ```
 
-## `configuration.nix`
+### `configuration.nix`
 
 ```nix
 
@@ -146,6 +146,8 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dwilliams = {
     isNormalUser = true;
@@ -166,21 +168,22 @@
     libnotify # send alerts
     xdg-desktop-portal-hyprland
 
+
     # Hyprland Related
-    quickshell
+    app2unit # launcher
     clipman
+    cliphist
     grim
+    quickshell
     slurp
     nwg-look
-    nwg-dock-hyprland
-    nwg-menu
-    nwg-panel
-    nwg-launchers
     rofi
     wofi
     waybar
-    waypaper
     matugen
+
+
+   #  Add your programs here
 
     atop
     bat
@@ -205,6 +208,7 @@
     nh
     onefetch
     pciutils
+    ranger
     ripgrep
     starship
     tmux
@@ -215,6 +219,7 @@
     zig
     zoxide
   ];
+
   fonts = {
     packages = with pkgs; [
       dejavu_fonts
