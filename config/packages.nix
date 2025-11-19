@@ -45,6 +45,7 @@
     google-chrome
     htop
     hyfetch
+    inxi
     kitty
     bibata-cursors
     lunarvim # Alternate neovim (lvim)
