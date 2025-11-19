@@ -6,6 +6,7 @@ with a few additions:
 - Modular drivers for AMD/Intel/NVIDIA GPUs and VM guest services
 - Small install script for first-time setup on a single host
 - Home Manager wiring for user-level config
+- Added Noctalia-shell
 
 ### Upstream inspiration
 
@@ -13,9 +14,16 @@ with a few additions:
 - Config: [tony,btw GitHub](https://github.com/tonybanters)
 
 > Default target is **a single host**, often running in a VM.
+>
 > - QEMU/KVM with VirtIO and 3D acceleration enabled
 > - Can be installed from a live NixOS ISO (see Tony's video)
-> - This repo now includes basic GPU + VM support out of the box.
+> - This repo now includes basic AMD/Intel/NVIDIA/Hybrid GPU + VM support out of the box.
+
+### Important:
+
+> Note: Currently the first-time you login `noctalia` doesn't start
+> Logout `SUPER+SHIFT+Q` then back in. It will start normally after that
+> I am working to resolve this issue
 
 ## Features
 
@@ -452,7 +460,7 @@ Default keybinds from <code>config/hypr/hyprland.conf</code> (with <code>$mainMo
 | SUPER + 1–0                    | workspace 1–10                             | Switch to workspace 1–10                                 |
 | SUPER + SHIFT + 1–0            | movetoworkspace 1–10                       | Move focused window to workspace 1–10                    |
 | SUPER + mouse scroll down      | workspace e+1                              | Go to next workspace                                     |
-| SUPER + mouse scroll up        | workspace e-1                              | Go to previous workspace                                     |
+| SUPER + mouse scroll up        | workspace e-1                              | Go to previous workspace                                 |
 | SUPER + mouse:272 (drag left)  | movewindow                                 | Drag to move window                                      |
 | SUPER + mouse:273 (drag right) | resizewindow                               | Drag to resize window                                    |
 
