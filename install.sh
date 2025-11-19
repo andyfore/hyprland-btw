@@ -36,6 +36,76 @@ print_success_banner() {
   echo -e "${GREEN}╚═══════════════════════════════════════════════════════════════════════╝${NC}"
 }
 
+prompt_yes_no() {
+  # Usage: prompt_yes_no "Question?" [default]
+  # default: Y or N (case-insensitive). If omitted, default is Y.
+  local question="$1"
+  local def="${2:-Y}"
+  local ans=""
+  local suffix="[Y/n]"
+  if [[ "$def" =~ ^[Nn]$ ]]; then suffix="[y/N]"; fi
+  while true; do
+    if [ -r /dev/tty ] && [ -w /dev/tty ]; then
+      printf "%s %s " "$question" "$suffix" > /dev/tty
+      IFS= read -r ans < /dev/tty || ans=""
+    else
+      printf "%s %s " "$question" "$suffix"
+      IFS= read -r ans || ans=""
+    fi
+    # Trim whitespace
+    ans="${ans//[$'\t\r\n ']}"
+    if [[ -z "$ans" ]]; then
+      if [[ "$def" =~ ^[Yy]$ ]]; then return 0; else return 1; fi
+    fi
+    # Lowercase comparison (bash >= 4)
+    case "${ans,,}" in
+      y|yes) return 0 ;;
+      n|no)  return 1 ;;
+      *) echo "Please answer y or n." ;;
+    esac
+  done
+}
+
+is_valid_username() {
+  # POSIX-ish: start with [a-z_], then [a-z0-9_-]; limit to 32 chars
+  local u="$1"
+  [[ "$u" =~ ^[a-z_][a-z0-9_-]{0,31}$ ]]
+}
+
+ensure_username() {
+  # Reads/validates $userName (already populated) and enforces existence or explicit consent
+  while true; do
+    if [ -z "$userName" ]; then
+      userName="$defaultUserName"
+    fi
+    if ! is_valid_username "$userName"; then
+      echo -e "${RED}Invalid username '$userName'. Use lowercase letters, digits, '_' or '-', starting with a letter or '_' (max 32).${NC}"
+      if [ $NONINTERACTIVE -eq 1 ]; then
+        exit 1
+      fi
+      printf "Enter primary username for this system [%s]: " "$defaultUserName"
+      IFS= read -r userName
+      continue
+    fi
+    if id -u "$userName" >/dev/null 2>&1 || getent passwd "$userName" >/dev/null 2>&1; then
+      echo -e "${GREEN}User '$userName' exists on this system.${NC}"
+      break
+    fi
+    echo -e "${YELLOW}User '$userName' does not currently exist on this system.${NC}"
+    echo -e "${YELLOW}It will be created during nixos-rebuild (users.users.\"$userName\" is defined).${NC}"
+    if [ $NONINTERACTIVE -eq 1 ]; then
+      echo -e "Non-interactive: proceeding with automatic creation."
+      break
+    fi
+    if prompt_yes_no "Proceed with creating '$userName' on switch?" N; then
+      break
+    fi
+    # Reprompt for a different username
+    printf "Enter a different username [%s]: " "$defaultUserName"
+    IFS= read -r userName
+  done
+}
+
 print_failure_banner() {
   echo -e "${RED}╔═══════════════════════════════════════════════════════════════════════╗${NC}"
   echo -e "${RED}║         hyprland-btw installation failed during nixos-rebuild.        ║${NC}"
@@ -206,9 +276,7 @@ else
 
   echo ""
   read -rp "Enter primary username for this system [${defaultUserName}]: " userName
-  if [ -z "$userName" ]; then
-    userName="$defaultUserName"
-  fi
+  ensure_username
 
   echo ""
   echo -e "Common keyboard layouts:"
@@ -240,6 +308,37 @@ else
   fi
 fi
 
+print_header "User and Root Password Checks"
+
+# Username was validated and confirmed earlier in ensure_username
+: # no-op
+
+# 2) Check if root has a usable password; if not, offer to set it now.
+#    Root is considered unset/locked if the shadow field is empty or starts with '!' or '*'.
+ROOT_FIELD=$(sudo awk -F: '$1=="root"{print $2}' /etc/shadow 2>/dev/null || true)
+if [[ -z "$ROOT_FIELD" || "$ROOT_FIELD" == '!'* || "$ROOT_FIELD" == '*'* ]]; then
+  echo -e "${YELLOW}Root password appears unset or locked.${NC}"
+  if [ $NONINTERACTIVE -eq 1 ]; then
+    echo -e "Non-interactive: skipping root password configuration. Use 'sudo passwd root' later."
+  else
+    read -p "Set the root password now? (Y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo -e "You will be prompted to enter a new password for root."
+      if ! sudo passwd root; then
+        print_error "Failed to set root password."
+        read -p "Continue anyway? (Y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+          exit 1
+        fi
+      fi
+    fi
+  fi
+else
+  echo -e "${GREEN}Root password appears to be set.${NC}"
+fi
+
 echo -e "${GREEN}Selected timezone: $timeZone${NC}"
 echo -e "${GREEN}Selected hostname: $hostName${NC}"
 echo -e "${GREEN}Selected username: $userName${NC}"
@@ -248,8 +347,9 @@ echo -e "${GREEN}Selected console keymap: $consoleKeyMap${NC}"
 echo -e "${GREEN}Selected GPU profile: $GPU_PROFILE${NC}"
 
 # Patch configuration.nix with chosen timezone, hostname, username, layouts, and VM profile.
-sed -i "s|time.timeZone = \".*\";|time.timeZone = \"$timeZone\";|" ./configuration.nix
-sed -i "s|networking.hostName = \".*\";|networking.hostName = \"$hostName\";|" ./configuration.nix
+sed -i -E 's|(^\s*time\.timeZone\s*=\s*\").*(\";)|\1'"$timeZone"'\2|' ./configuration.nix
+# configuration.nix defines hostName inside the networking attrset (not networking.hostName = ...)
+sed -i -E 's|(^\s*hostName\s*=\s*\").*(\";)|\1'"$hostName"'\2|' ./configuration.nix
 # Update the primary user attribute in configuration.nix to the chosen username (match any current value).
 sed -i -E 's|users\.users\."[^"]+"\s*=\s*\{|users.users."'"$userName"'" = {|' ./configuration.nix
 # Update console keymap and XKB layout.
