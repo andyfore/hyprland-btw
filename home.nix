@@ -28,54 +28,68 @@
 
         pick_term() {
           if [ -n "''${TERM_BIN}" ] && command -v "$TERM_BIN" >/dev/null 2>&1; then
-            echo "$TERM_BIN"; return
+            echo "$TERM_BIN"
+            return
           fi
           for t in kitty foot alacritty wezterm ghostty; do
-            if command -v "$t" >/dev/null 2>&1; then echo "$t"; return; fi
+            if command -v "$t" >/dev/null 2>&1; then
+              echo "$t"
+              return
+            fi
           done
-          echo ""
         }
 
         repo="$HOME/Projects/ddubs/hyprland-btw"
 
-        declare -A files=(
-          ["flake.nix"]="$repo/flake.nix"
-          ["home.nix"]="$repo/home.nix"
-          ["configuration.nix"]="$repo/configuration.nix"
-          ["hardware-configuration.nix"]="$repo/hardware-configuration.nix"
-          ["config/hypr/hyprland.conf"]="$repo/config/hypr/hyprland.conf"
-          ["config/hypr/binds.conf"]="$repo/config/hypr/binds.conf"
-          ["config/hypr/env.conf"]="$repo/config/hypr/env.conf"
-          ["config/hypr/startup.conf"]="$repo/config/hypr/startup.conf"
-          ["config/hypr/WindowRules.conf"]="$repo/config/hypr/WindowRules.conf"
-          ["config/hypr/appearance.conf"]="$repo/config/hypr/appearance.conf"
-          ["config/hypr/hyprpaper.conf"]="$repo/config/hypr/hyprpaper.conf"
-          ["config/packages.nix"]="$repo/config/packages.nix"
-          ["config/fonts.nix"]="$repo/config/fonts.nix"
-          ["config/.zshrc-personal"]="$repo/config/.zshrc-personal"
-          ["config/.bashrc-personal"]="$repo/config/.bashrc-personal"
-          ["config/kitty/kitty.conf"]="$repo/config/kitty/kitty.conf"
+        # Create temp file for name->path mapping
+        tmpmap=$(mktemp)
+        trap "rm -f $tmpmap" EXIT
+
+        # All config files with their display names
+        files_data=(
+          "flake.nix:$repo/flake.nix"
+          "home.nix:$repo/home.nix"
+          "configuration.nix:$repo/configuration.nix"
+          "hardware-configuration.nix:$repo/hardware-configuration.nix"
+          "config/hypr/hyprland.conf:$repo/config/hypr/hyprland.conf"
+          "config/hypr/binds.conf:$repo/config/hypr/binds.conf"
+          "config/hypr/env.conf:$repo/config/hypr/env.conf"
+          "config/hypr/startup.conf:$repo/config/hypr/startup.conf"
+          "config/hypr/WindowRules.conf:$repo/config/hypr/WindowRules.conf"
+          "config/hypr/appearance.conf:$repo/config/hypr/appearance.conf"
+          "config/hypr/hyprpaper.conf:$repo/config/hypr/hyprpaper.conf"
+          "config/packages.nix:$repo/config/packages.nix"
+          "config/fonts.nix:$repo/config/fonts.nix"
+          "config/.zshrc-personal:$repo/config/.zshrc-personal"
+          "config/.bashrc-personal:$repo/config/.bashrc-personal"
+          "config/kitty/kitty.conf:$repo/config/kitty/kitty.conf"
         )
 
-        # Build menu list showing only existing files
-        menu_items=""
-        for display in "''${!files[@]}"; do
-          path="''${files[$display]}"
+        # Build display list and mapping, only for existing files
+        display_list=""
+        for entry in "''${files_data[@]}"; do
+          display="''${entry%%:*}"
+          path="''${entry##*:}"
           if [ -f "$path" ]; then
-            menu_items="$menu_items$display
+            echo "$display|$path" >> "$tmpmap"
+            display_list="''${display_list}$display
 "
           fi
         done
 
-        choice="$(printf '%s' "$menu_items" | sort | rofi -dmenu -i -config "$HOME/.config/rofi/config-menu.rasi" -p ' Edit Config')"
+        # Show rofi menu
+        choice=$(echo -n "$display_list" | sort | rofi -dmenu -i -config "$HOME/.config/rofi/config-menu.rasi" -p ' Edit Config')
         [ -z "$choice" ] && exit 0
-        target="''${files[$choice]}"
+
+        # Look up path from mapping
+        target=$(grep "^$choice|" "$tmpmap" | cut -d'|' -f2)
+        [ -z "$target" ] && exit 1
 
         term="$(pick_term)"
         if [ -n "$term" ] && [[ "$EDITOR_BIN" =~ ^(nvim|vim|vi|nano|helix|hx)$ ]]; then
           exec "$term" -e "$EDITOR_BIN" "$target"
         else
-          "$EDITOR_BIN" "$target" >/dev/null 2>&1 & disown
+          exec "$EDITOR_BIN" "$target"
         fi
       '')
     ];
