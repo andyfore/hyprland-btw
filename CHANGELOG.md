@@ -6,6 +6,13 @@
 
 ## Inspired by: Tony,btw YouTube Video. (See README.md)
 
+#### Hyprland-btw v0.2.3
+
+- Code cleanup
+  - Moved scripts to own directory `config/scripts`
+  - Removed old unused code
+- Added TokyoNight theme as option. (commented out )
+
 #### Hyprland-btw v0.2.2
 
 - Added:
