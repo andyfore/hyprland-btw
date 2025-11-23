@@ -39,7 +39,18 @@
           done
         }
 
-        repo="$HOME/Projects/ddubs/hyprland-btw"
+        # Find repo directory
+        repo=""
+        for candidate in "$HOME/hyprland-btw" "$HOME/Hyprland-btw"; do
+          if [ -d "$candidate" ] && [ -f "$candidate/flake.nix" ]; then
+            repo="$candidate"
+            break
+          fi
+        done
+        if [ -z "$repo" ]; then
+          echo "Error: hyprland-btw repo not found in $HOME" >&2
+          exit 1
+        fi
 
         # Create temp file for name->path mapping
         tmpmap=$(mktemp)
