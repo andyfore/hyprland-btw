@@ -13,7 +13,8 @@
     homeDirectory = lib.mkDefault "/home/dwilliams";
     stateVersion = "25.11";
     sessionVariables = {
-      GTK_THEME = "Adwaita:dark";
+      # GTK_THEME = "Adwaita:dark";
+      GTK_THEME = "Dracula";
     };
     packages = [
       (pkgs.writeShellScriptBin "rofi-legacy.menu" ''
@@ -100,6 +101,8 @@
           exec "$EDITOR_BIN" "$target"
         fi
       '')
+      pkgs.dracula-theme
+      # pkgs.dracula-icon-theme  # Uncomment if you want Dracula icons
     ];
   };
 
@@ -126,7 +129,8 @@
       profileExtra = ''
         if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
           #exec uwsm start -S hyprland-uwsm.desktop
-          export GTK_THEME=Adwaita:dark
+          # export GTK_THEME=Adwaita:dark
+          export GTK_THEME=Dracula
           exec Hyprland
         fi
       '';
@@ -163,8 +167,29 @@
   };
 
   #  Help consistently theme appps 
+  # Original Adwaita theme configuration:
+  # gtk = {
+  #   enable = true;
+  #   gtk3.extraConfig = {
+  #     "gtk-application-prefer-dark-theme" = 1;
+  #   };
+  #   gtk4.extraConfig = {
+  #     "gtk-application-prefer-dark-theme" = 1;
+  #   };
+  # };
+
+  # Dracula theme configuration
   gtk = {
     enable = true;
+    theme = {
+      name = "Dracula";
+      package = pkgs.dracula-theme;
+    };
+    # Optional: uncomment for Dracula icons
+    # iconTheme = {
+    #   name = "Dracula";
+    #   package = pkgs.dracula-icon-theme;
+    # };
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
     };
