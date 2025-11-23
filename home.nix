@@ -5,6 +5,7 @@
     ./config/nixvim.nix # Nixvim HM module
     ./config/noctalia.nix # Noctalia QuickShell wiring (fronm ddubsos)
     ./config/vscode.nix
+    ./config/kitty.nix
     ./config/ghostty.nix
     ./config/wezterm.nix
     ./config/alacritty.nix
@@ -77,7 +78,7 @@
           "config/fonts.nix:$repo/config/fonts.nix"
           "config/.zshrc-personal:$repo/config/.zshrc-personal"
           "config/.bashrc-personal:$repo/config/.bashrc-personal"
-          "config/kitty/kitty.conf:$repo/config/kitty/kitty.conf"
+          #"config/kitty/kitty.conf:$repo/config/kitty/kitty.conf"
         )
 
         # Build display list and mapping, only for existing files
