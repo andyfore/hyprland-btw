@@ -106,7 +106,6 @@
         fi
       '')
       pkgs.dracula-theme
-      # pkgs.dracula-icon-theme  # Uncomment if you want Dracula icons
     ];
   };
 
@@ -163,24 +162,11 @@
         "--no-quotes"
         "--header" # Show header row
         "--git-ignore"
-        # "--time-style=long-iso" # ISO 8601 extended format for time
         "--classify" # append indicator (/, *, =, @, |)
         "--hyperlink" # make paths clickable in some terminals
       ];
     };
   };
-
-  #  Help consistently theme appps 
-  # Original Adwaita theme configuration:
-  # gtk = {
-  #   enable = true;
-  #   gtk3.extraConfig = {
-  #     "gtk-application-prefer-dark-theme" = 1;
-  #   };
-  #   gtk4.extraConfig = {
-  #     "gtk-application-prefer-dark-theme" = 1;
-  #   };
-  # };
 
   # Dracula theme configuration
   gtk = {
@@ -188,6 +174,10 @@
     theme = {
       name = "Dracula";
       package = pkgs.dracula-theme;
+      #package = pkgs.tokyonight-gtk-theme;
+      #Dark (Blue Accent): "Tokyonight-Dark-B"
+      #Dark (Moon Accent): "Tokyonight-Dark-Moon"
+      #Storm (Gray/Muted Accent): "Tokyonight-Storm-B"
     };
     # Optional: uncomment for Dracula icons
     iconTheme = {
