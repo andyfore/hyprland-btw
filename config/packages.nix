@@ -35,6 +35,7 @@
     cargo
     clang
     curl
+    coreutils
     direnv # needed for zsh plugin and vscode
     fastfetch
     foot
