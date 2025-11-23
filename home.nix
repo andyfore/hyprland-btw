@@ -5,6 +5,7 @@
     ./config/nixvim.nix # Nixvim HM module
     ./config/noctalia.nix # Noctalia QuickShell wiring (fronm ddubsos)
     ./config/vscode.nix
+    ./config/ghostty.nix
     ./config/zsh.nix
     ./config/yazi/default.nix
   ];
