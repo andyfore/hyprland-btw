@@ -267,9 +267,9 @@
             # Launch kitty (background by default) with background image overrides
             if (( LAUNCH )); then
               if (( FOREGROUND )); then
-                exec kitty "${OVERRIDES[@]}" "$@"
+                exec kitty "''${OVERRIDES[@]}" "$@"
               else
-                setsid -f kitty "${OVERRIDES[@]}" "$@" >/dev/null 2>&1 < /dev/null &
+                setsid -f kitty "''${OVERRIDES[@]}" "$@" >/dev/null 2>&1 < /dev/null &
               fi
             fi
     '')
