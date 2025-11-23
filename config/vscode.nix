@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs.lib) attrByPath;
 
   # Optional versions; set these to real versions to enable marketplace fetches.
@@ -8,18 +9,20 @@
 
   # Helper: prefer Open VSX (pkgs.vscode-extensions). If missing and a version is
   # provided, fetch from the VSCode Marketplace using extensionsFromVscodeMarketplace.
-  extOrMarketplace = {
-    publisher,
-    name,
-    version ? null,
-    sha256 ? null,
-  }: let
-    fromOpenVSX = attrByPath [publisher name] null pkgs.vscode-extensions;
-  in
+  extOrMarketplace =
+    { publisher
+    , name
+    , version ? null
+    , sha256 ? null
+    ,
+    }:
+    let
+      fromOpenVSX = attrByPath [ publisher name ] null pkgs.vscode-extensions;
+    in
     if fromOpenVSX != null
-    then [fromOpenVSX]
+    then [ fromOpenVSX ]
     else if version == null
-    then []
+    then [ ]
     else
       pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -49,7 +52,8 @@
     version = neroHyprlandVer;
     sha256 = "sha256-3RiSYmJK/xODCvUi9c2xtvEIWSBABVHk6QYCAFoqsa8=";
   };
-in {
+in
+{
   programs.vscode = {
     enable = true;
     profiles = {
@@ -71,8 +75,10 @@ in {
           ++ hyprlsExts
           ++ neroHyprlandExts;
         userSettings = {
-          "workbench.colorTheme" = "Catppuccin Mocha";
-          "workbench.iconTheme" = "catppuccin-mocha";
+          #"workbench.colorTheme" = "Catppuccin Mocha";
+          #"workbench.iconTheme" = "catppuccin-mocha";
+          "workbench.colorTheme" = "Nero Hyprland";
+          "workbench.iconTheme" = "Nero Hyprland";
         };
       };
     };

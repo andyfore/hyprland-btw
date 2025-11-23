@@ -186,10 +186,10 @@
       package = pkgs.dracula-theme;
     };
     # Optional: uncomment for Dracula icons
-    # iconTheme = {
-    #   name = "Dracula";
-    #   package = pkgs.dracula-icon-theme;
-    # };
+    iconTheme = {
+      name = "candy-icons";
+      package = pkgs.candy-icons;
+    };
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
     };
