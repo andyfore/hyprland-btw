@@ -56,6 +56,7 @@
     nh # Nix Helper
     nixd # nix lsp
     onefetch
+    onlyoffice
     pciutils
     ranger
     ripgrep
