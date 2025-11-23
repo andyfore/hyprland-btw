@@ -30,7 +30,7 @@
           if [ -n "''${TERM_BIN}" ] && command -v "$TERM_BIN" >/dev/null 2>&1; then
             echo "$TERM_BIN"; return
           fi
-          for t in kitty foot alacritty gnome-terminal konsole xterm; do
+          for t in kitty foot alacritty wezterm ghostty; do
             if command -v "$t" >/dev/null 2>&1; then echo "$t"; return; fi
           done
           echo ""
