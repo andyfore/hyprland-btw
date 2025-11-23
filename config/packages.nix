@@ -56,7 +56,7 @@
     nh # Nix Helper
     nixd # nix lsp
     onefetch
-    onlyoffice
+    onlyoffice-desktopeditors
     pciutils
     ranger
     ripgrep
