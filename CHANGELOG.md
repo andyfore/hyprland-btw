@@ -6,6 +6,11 @@
 
 ## Inspired by: Tony,btw YouTube Video. (See README.md)
 
+#### Hyprland-btw v0.2.4
+
+- Created desktop file for `kitty-bg`
+- Made `kitty-bg` alternmate terminal `SUPERSHIFT+ENTER`
+
 #### Hyprland-btw v0.2.3
 
 - Code cleanup
