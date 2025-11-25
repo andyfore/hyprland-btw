@@ -7,13 +7,14 @@ let
 in
 {
   imports = [
-    ./config/nixvim.nix # Nixvim HM module
+    ./config/editors/nixvim.nix # Nixvim NeoVIM config 
+    #./config/editors/nvf.nix # nvf alternate NVIM config 
     ./config/noctalia.nix # Noctalia QuickShell wiring (fronm ddubsos)
-    ./config/vscode.nix # w/plugins and nero hyprland theme
-    ./config/kitty.nix #kitty term and kitty-bg (background in kitty)
-    ./config/ghostty.nix
-    ./config/wezterm.nix
-    ./config/alacritty.nix
+    ./config/editors/vscode.nix # w/plugins and nero hyprland theme
+    ./config/terminals/kitty.nix #kitty term and kitty-bg (background in kitty)
+    ./config/terminals/ghostty.nix
+    ./config/terminals/wezterm.nix
+    ./config/terminals/alacritty.nix
     ./config/zsh.nix # Cfg zsh from @justaguylinux
     ./config/yazi/default.nix
   ];
@@ -135,10 +136,10 @@ in
   home.file.".config/hypr".source = ./config/hypr;
   home.file.".config/waybar".source = ./config/waybar;
   home.file.".config/fastfetch".source = ./config/fastfetch;
-  home.file.".config/foot".source = ./config/foot;
+  home.file.".config/foot".source = ./config/terminals/foot;
   home.file.".bashrc-personal".source = ./config/.bashrc-personal;
   home.file.".zshrc-personal".source = ./config/.zshrc-personal;
-  home.file.".config/tmux/tmux.conf".source = ./config/tmux.conf;
+  home.file.".config/tmux/tmux.conf".source = ./config/terminals/tmux.conf;
   home.file.".config/starship.toml".source = ./config/starship.toml;
   home.file.".config/rofi/legacy.config.rasi".source = ./config/rofi/legacy.config.rasi;
   home.file.".config/rofi/legacy-rofi.jpg".source = ./config/rofi/legacy-rofi.jpg;
