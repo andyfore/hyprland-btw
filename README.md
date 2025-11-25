@@ -607,135 +607,137 @@ Default keybinds from <code>config/hypr/hyprland.conf</code> (with <code>$mainMo
 ## Repository layout:
 
 ```text path=null start=null
+[4.0K]  "."
+├── [4.7K]  "CHANGELOG.md"
+├── [4.0K]  "config"
+│   ├── [4.0K]  "editors"
+│   │   ├── [ 13K]  "nixvim.nix"
+│   │   ├── [ 11K]  "nvf.nix"
+│   │   └── [2.6K]  "vscode.nix"
+│   ├── [4.0K]  "fastfetch"
+│   │   ├── [2.6K]  "config.jsonc"
+│   │   └── [ 78K]  "nixos.png"
+│   ├── [ 556]  "fonts.nix"
+│   ├── [4.0K]  "hypr"
+│   │   ├── [4.0K]  "animations"
+│   │   │   ├── [ 882]  "00-default.conf"
+│   │   │   ├── [ 867]  "01-default-v2.conf"
+│   │   │   ├── [  89]  "03-Disable-Animation.conf"
+│   │   │   ├── [1.6K]  "END-4.conf"
+│   │   │   ├── [ 711]  "HYDE-default.conf"
+│   │   │   ├── [1.1K]  "HYDE-minimal-1.conf"
+│   │   │   ├── [ 400]  "HYDE-minimal-2.conf"
+│   │   │   ├── [1.6K]  "HYDE-optimized.conf"
+│   │   │   ├── [1.1K]  "HYDE-Vertical.conf"
+│   │   │   ├── [ 446]  "hyprland-default.conf"
+│   │   │   ├── [2.1K]  "Mahaveer-me-1.conf"
+│   │   │   ├── [ 942]  "Mahaveer-me-2.conf"
+│   │   │   ├── [ 462]  "ML4W-classic.conf"
+│   │   │   ├── [ 657]  "ML4W-dynamic.conf"
+│   │   │   ├── [ 871]  "ML4W-fast.conf"
+│   │   │   ├── [ 653]  "ML4W-high.conf"
+│   │   │   ├── [ 638]  "ML4W-moving.conf"
+│   │   │   └── [ 463]  "ML4W]-standard.conf"
+│   │   ├── [1.5K]  "appearance.conf"
+│   │   ├── [3.9K]  "binds.conf"
+│   │   ├── [ 539]  "env.conf"
+│   │   ├── [ 781]  "hyprland.conf"
+│   │   ├── [  95]  "hyprpaper.conf"
+│   │   ├── [ 647]  "input.conf"
+│   │   ├── [ 395]  "startup.conf"
+│   │   └── [ 662]  "WindowRules.conf"
+│   ├── [4.0K]  "images"
+│   │   ├── [237K]  "config-menu.png"
+│   │   ├── [1.2M]  "kitty-bg.png"
+│   │   ├── [789K]  "rofi-menu.png"
+│   │   ├── [782K]  "ScreenShot-htop-noctalia.png"
+│   │   ├── [422K]  "ScreenShot-htop-waybar.png"
+│   │   ├── [885K]  "ScreenShot-Noctalia.png"
+│   │   └── [1.1M]  "ScreenShot-waybar.png"
+│   ├── [ 871]  "noctalia.nix"
+│   ├── [1.1K]  "packages.nix"
+│   ├── [4.0K]  "rofi"
+│   │   ├── [1.6K]  "config-menu.rasi"
+│   │   ├── [2.5K]  "legacy.config.rasi"
+│   │   ├── [1.5M]  "legacy-rofi.jpg"
+│   │   └── [ 125]  "rofi-legacy.menu.nix"
+│   ├── [4.0K]  "scripts"
+│   │   ├── [2.6K]  "config-menu.nix"
+│   │   ├── [1.5K]  "keybinds.nix"
+│   │   └── [ 121]  "rofi-legacy.menu.nix"
+│   ├── [3.8K]  "starship.toml"
+│   ├── [4.0K]  "terminals"
+│   │   ├── [ 566]  "alacritty.nix"
+│   │   ├── [4.0K]  "foot"
+│   │   │   └── [ 698]  "foot.ini"
+│   │   ├── [6.3K]  "ghostty.nix"
+│   │   ├── [4.0K]  "ghostty-themes"
+│   │   │   └── [ 475]  "catppuccin-mocha"
+│   │   ├── [4.0K]  "kitty"
+│   │   │   └── [ 769]  "kitty.conf"
+│   │   ├── [9.5K]  "kitty.nix"
+│   │   ├── [3.2K]  "tmux.conf"
+│   │   └── [4.5K]  "wezterm.nix"
+│   ├── [4.0K]  "wallpapers"
+│   │   ├── [629K]  "3d-door.jpg"
+│   │   ├── [2.4M]  "a_group_of_wooden_posts_in_water.jpg"
+│   │   ├── [2.9M]  "alena-aenami-cloud-sunset.jpg"
+│   │   ├── [611K]  "alena-aenami-cold.jpg"
+│   │   ├── [491K]  "alena-aenami-endless.jpg"
+│   │   ├── [595K]  "alena-aenami-far-from-tomorrow.jpg"
+│   │   ├── [7.8M]  "Anime-Lake.png"
+│   │   ├── [5.8M]  "Anime-Lanscape.png"
+│   │   ├── [1.5M]  "Anime-Purple-eyes.png"
+│   │   ├── [2.6M]  "astralbed.png"
+│   │   ├── [1.2M]  "beach-ocean-waves-sunset-clouds-scenery-2k-wallpaper.jpg"
+│   │   ├── [258K]  "bluehour.jpg"
+│   │   ├── [514K]  "CloudRipple.jpg"
+│   │   ├── [515K]  "cosmic_blue.jpg"
+│   │   ├── [4.9M]  "CuteCat.png"
+│   │   ├── [1.3M]  "cyber.jpg"
+│   │   ├── [295K]  "DT-Mountain-Lake.jpg"
+│   │   ├── [635K]  "flowers-1.jpg"
+│   │   ├── [2.5M]  "Hot-Blue-911.jpg"
+│   │   ├── [313K]  "lake-dock-fog.jpg"
+│   │   ├── [956K]  "Lofi-Cafe.jpg"
+│   │   ├── [ 13M]  "lofi-Urban-Nightscape.png"
+│   │   ├── [690K]  "midnight-reflections-moonlit-sea.jpg"
+│   │   ├── [316K]  "Mily-Way-over-Horse-Head-Rock-New-South-Wales-fog.jpg"
+│   │   ├── [698K]  "moonlight.jpg"
+│   │   ├── [272K]  "nordwall3.jpg"
+│   │   ├── [3.9M]  "Pastel-lake-boat-on-shore.png"
+│   │   ├── [841K]  "purple_gasstation_abstract_dark_night.jpg"
+│   │   ├── [326K]  "Purple-Nightmare.jpg"
+│   │   ├── [ 12M]  "River-Moutains-Cherry-Blosums.png"
+│   │   ├── [103K]  "Seaside-wharf-at-night.avif"
+│   │   ├── [ 55K]  "sunrise-horse-head-rock-bermagui-new-south-wales-australia-end-world-172241321.webp"
+│   │   └── [7.1M]  "Water-flowing-over-rock.png"
+│   ├── [4.0K]  "waybar"
+│   │   ├── [1.9K]  "config.jsonc"
+│   │   └── [1.6K]  "style.css"
+│   ├── [4.0K]  "yazi"
+│   │   ├── [ 826]  "default.nix"
+│   │   ├── [ 25K]  "keymap.nix"
+│   │   ├── [ 58K]  "theme.nix"
+│   │   ├── [ 36K]  "theme.toml"
+│   │   └── [8.8K]  "yazi.nix"
+│   └── [5.0K]  "zsh.nix"
+├── [3.3K]  "configuration.nix"
+├── [5.6K]  "flake.lock"
+├── [ 990]  "flake.nix"
+├── [1.5K]  "hardware-configuration.nix"
+├── [4.7K]  "home.nix"
+├── [ 22K]  "install.sh"
+├── [ 34K]  "LICENSE"
+├── [4.0K]  "modules"
+│   └── [4.0K]  "drivers"
+│       ├── [ 368]  "amd-drivers.nix"
+│       ├── [ 131]  "default.nix"
+│       ├── [ 389]  "intel-drivers.nix"
+│       ├── [ 566]  "nvidia-drivers.nix"
+│       └── [ 395]  "vm-guest-services.nix"
+└── [ 26K]  "README.md"
 
-[4.0K]  [01;34m.[0m
-├── [4.7K]  CHANGELOG.md
-├── [4.0K]  [01;34mconfig[0m
-│   ├── [4.0K]  [01;34meditors[0m
-│   │   ├── [ 13K]  nixvim.nix
-│   │   ├── [ 11K]  nvf.nix
-│   │   └── [2.6K]  vscode.nix
-│   ├── [4.0K]  [01;34mfastfetch[0m
-│   │   ├── [2.6K]  [01;32mconfig.jsonc[0m
-│   │   └── [ 78K]  [01;32mnixos.png[0m
-│   ├── [ 556]  fonts.nix
-│   ├── [4.0K]  [01;34mhypr[0m
-│   │   ├── [4.0K]  [01;34manimations[0m
-│   │   │   ├── [ 882]  00-default.conf
-│   │   │   ├── [ 867]  01-default-v2.conf
-│   │   │   ├── [  89]  03-Disable-Animation.conf
-│   │   │   ├── [1.6K]  END-4.conf
-│   │   │   ├── [ 711]  HYDE-default.conf
-│   │   │   ├── [1.1K]  HYDE-minimal-1.conf
-│   │   │   ├── [ 400]  HYDE-minimal-2.conf
-│   │   │   ├── [1.6K]  HYDE-optimized.conf
-│   │   │   ├── [1.1K]  HYDE-Vertical.conf
-│   │   │   ├── [ 446]  hyprland-default.conf
-│   │   │   ├── [2.1K]  Mahaveer-me-1.conf
-│   │   │   ├── [ 942]  Mahaveer-me-2.conf
-│   │   │   ├── [ 462]  ML4W-classic.conf
-│   │   │   ├── [ 657]  ML4W-dynamic.conf
-│   │   │   ├── [ 871]  ML4W-fast.conf
-│   │   │   ├── [ 653]  ML4W-high.conf
-│   │   │   ├── [ 638]  ML4W-moving.conf
-│   │   │   └── [ 463]  ML4W]-standard.conf
-│   │   ├── [1.5K]  appearance.conf
-│   │   ├── [3.9K]  binds.conf
-│   │   ├── [ 539]  env.conf
-│   │   ├── [ 781]  hyprland.conf
-│   │   ├── [  95]  hyprpaper.conf
-│   │   ├── [ 647]  input.conf
-│   │   ├── [ 395]  startup.conf
-│   │   └── [ 662]  WindowRules.conf
-│   ├── [4.0K]  [01;34mimages[0m
-│   │   ├── [237K]  [01;35mconfig-menu.png[0m
-│   │   ├── [1.2M]  [01;35mkitty-bg.png[0m
-│   │   ├── [789K]  [01;35mrofi-menu.png[0m
-│   │   ├── [782K]  [01;35mScreenShot-htop-noctalia.png[0m
-│   │   ├── [422K]  [01;35mScreenShot-htop-waybar.png[0m
-│   │   ├── [885K]  [01;35mScreenShot-Noctalia.png[0m
-│   │   └── [1.1M]  [01;35mScreenShot-waybar.png[0m
-│   ├── [ 871]  noctalia.nix
-│   ├── [1.1K]  packages.nix
-│   ├── [4.0K]  [01;34mrofi[0m
-│   │   ├── [1.6K]  config-menu.rasi
-│   │   ├── [2.5K]  legacy.config.rasi
-│   │   ├── [1.5M]  [01;35mlegacy-rofi.jpg[0m
-│   │   └── [ 125]  rofi-legacy.menu.nix
-│   ├── [4.0K]  [01;34mscripts[0m
-│   │   ├── [2.6K]  config-menu.nix
-│   │   ├── [1.5K]  keybinds.nix
-│   │   └── [ 121]  rofi-legacy.menu.nix
-│   ├── [3.8K]  starship.toml
-│   ├── [4.0K]  [01;34mterminals[0m
-│   │   ├── [ 566]  alacritty.nix
-│   │   ├── [4.0K]  [01;34mfoot[0m
-│   │   │   └── [ 698]  foot.ini
-│   │   ├── [6.3K]  ghostty.nix
-│   │   ├── [4.0K]  [01;34mghostty-themes[0m
-│   │   │   └── [ 475]  catppuccin-mocha
-│   │   ├── [4.0K]  [01;34mkitty[0m
-│   │   │   └── [ 769]  kitty.conf
-│   │   ├── [9.5K]  kitty.nix
-│   │   ├── [3.2K]  tmux.conf
-│   │   └── [4.5K]  wezterm.nix
-│   ├── [4.0K]  [01;34mwallpapers[0m
-│   │   ├── [629K]  [01;32m3d-door.jpg[0m
-│   │   ├── [2.4M]  [01;35ma_group_of_wooden_posts_in_water.jpg[0m
-│   │   ├── [2.9M]  [01;32malena-aenami-cloud-sunset.jpg[0m
-│   │   ├── [611K]  [01;32malena-aenami-cold.jpg[0m
-│   │   ├── [491K]  [01;32malena-aenami-endless.jpg[0m
-│   │   ├── [595K]  [01;32malena-aenami-far-from-tomorrow.jpg[0m
-│   │   ├── [7.8M]  [01;32mAnime-Lake.png[0m
-│   │   ├── [5.8M]  [01;32mAnime-Lanscape.png[0m
-│   │   ├── [1.5M]  [01;35mAnime-Purple-eyes.png[0m
-│   │   ├── [2.6M]  [01;32mastralbed.png[0m
-│   │   ├── [1.2M]  [01;35mbeach-ocean-waves-sunset-clouds-scenery-2k-wallpaper.jpg[0m
-│   │   ├── [258K]  [01;35mbluehour.jpg[0m
-│   │   ├── [514K]  [01;32mCloudRipple.jpg[0m
-│   │   ├── [515K]  [01;32mcosmic_blue.jpg[0m
-│   │   ├── [4.9M]  [01;32mCuteCat.png[0m
-│   │   ├── [1.3M]  [01;32mcyber.jpg[0m
-│   │   ├── [295K]  [01;32mDT-Mountain-Lake.jpg[0m
-│   │   ├── [635K]  [01;35mflowers-1.jpg[0m
-│   │   ├── [2.5M]  [01;32mHot-Blue-911.jpg[0m
-│   │   ├── [313K]  [01;32mlake-dock-fog.jpg[0m
-│   │   ├── [956K]  [01;32mLofi-Cafe.jpg[0m
-│   │   ├── [ 13M]  [01;32mlofi-Urban-Nightscape.png[0m
-│   │   ├── [690K]  [01;32mmidnight-reflections-moonlit-sea.jpg[0m
-│   │   ├── [316K]  [01;32mMily-Way-over-Horse-Head-Rock-New-South-Wales-fog.jpg[0m
-│   │   ├── [698K]  [01;32mmoonlight.jpg[0m
-│   │   ├── [272K]  [01;32mnordwall3.jpg[0m
-│   │   ├── [3.9M]  [01;32mPastel-lake-boat-on-shore.png[0m
-│   │   ├── [841K]  [01;35mpurple_gasstation_abstract_dark_night.jpg[0m
-│   │   ├── [326K]  [01;32mPurple-Nightmare.jpg[0m
-│   │   ├── [ 12M]  [01;32mRiver-Moutains-Cherry-Blosums.png[0m
-│   │   ├── [103K]  [01;35mSeaside-wharf-at-night.avif[0m
-│   │   ├── [ 55K]  [01;32msunrise-horse-head-rock-bermagui-new-south-wales-australia-end-world-172241321.webp[0m
-│   │   └── [7.1M]  [01;35mWater-flowing-over-rock.png[0m
-│   ├── [4.0K]  [01;34mwaybar[0m
-│   │   ├── [1.9K]  config.jsonc
-│   │   └── [1.6K]  style.css
-│   ├── [4.0K]  [01;34myazi[0m
-│   │   ├── [ 826]  default.nix
-│   │   ├── [ 25K]  keymap.nix
-│   │   ├── [ 58K]  theme.nix
-│   │   ├── [ 36K]  theme.toml
-│   │   └── [8.8K]  yazi.nix
-│   └── [5.0K]  zsh.nix
-├── [3.3K]  configuration.nix
-├── [5.6K]  flake.lock
-├── [ 990]  flake.nix
-├── [1.5K]  hardware-configuration.nix
-├── [4.7K]  home.nix
-├── [ 22K]  [01;32minstall.sh[0m
-├── [ 34K]  LICENSE
-├── [4.0K]  [01;34mmodules[0m
-│   └── [4.0K]  [01;34mdrivers[0m
-│       ├── [ 368]  amd-drivers.nix
-│       ├── [ 131]  default.nix
-│       ├── [ 389]  intel-drivers.nix
-│       ├── [ 566]  nvidia-drivers.nix
-│       └── [ 395]  vm-guest-services.nix
-└── [ 23K]  README.md
+18 directories, 112 files
+
 ```
